@@ -29,7 +29,7 @@ def inject_global_styles() -> None:
         f'<link rel="stylesheet" href="{BOOTSTRAP_ICONS_CDN}">'
         f"<style>{css_content}</style>"
     )
-    st.markdown(html_block, unsafe_allow_html=True)
+    st.html(html_block)
 
 def render_app_header() -> None:
     """Header brand utama di puncak halaman."""
