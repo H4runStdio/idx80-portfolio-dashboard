@@ -1,0 +1,373 @@
+/* ============================================================
+   IDX80 Portfolio Dashboard — Stylesheet
+   Palet: charcoal/navy base dengan accent emerald untuk konteks
+   finansial. Tipografi Inter (UI) + IBM Plex Mono (data numerik).
+   ============================================================ */
+
+:root {
+    --bg-primary: #0F1419;
+    --bg-secondary: #161D26;
+    --bg-card: #1A222C;
+    --bg-card-hover: #1F2933;
+    --border-subtle: #2A3441;
+    --text-primary: #E8ECEF;
+    --text-secondary: #8B98A5;
+    --text-muted: #5A6776;
+    --accent-emerald: #2DD4A7;
+    --accent-emerald-dim: #1B8A6E;
+    --accent-amber: #E8A33D;
+    --accent-red: #E5484D;
+    --accent-blue: #4D9FE5;
+    --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+html, body, [class*="css"] {
+    font-family: var(--font-ui);
+}
+
+/* ---------- Layout dasar ---------- */
+.stApp {
+    background-color: var(--bg-primary);
+}
+
+section[data-testid="stSidebar"] {
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-subtle);
+}
+
+section[data-testid="stSidebar"] .block-container {
+    padding-top: 1.5rem;
+}
+
+/* ---------- Tipografi ---------- */
+h1, h2, h3, h4 {
+    font-family: var(--font-ui);
+    color: var(--text-primary);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+p, span, label, div {
+    color: var(--text-primary);
+}
+
+/* ---------- Header brand kustom ---------- */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 1.6rem;
+    background: linear-gradient(135deg, #141B23 0%, #1A2530 100%);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    margin-bottom: 1.4rem;
+}
+
+.app-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.app-header-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 9px;
+    background: rgba(45, 212, 167, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-emerald);
+    font-size: 1.35rem;
+    flex-shrink: 0;
+}
+
+.app-header-title {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.app-header-subtitle {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.app-header-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(45, 212, 167, 0.08);
+    border: 1px solid rgba(45, 212, 167, 0.25);
+    border-radius: 100px;
+    font-size: 0.74rem;
+    color: var(--accent-emerald);
+    font-family: var(--font-mono);
+}
+
+/* ---------- Section eyebrow / label navigasi ---------- */
+.section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-emerald);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+}
+
+.section-title {
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+}
+
+.section-desc {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    margin-bottom: 1.5rem;
+    max-width: 760px;
+    line-height: 1.55;
+}
+
+/* ---------- Card metrik ---------- */
+.metric-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 1.1rem 1.3rem;
+    height: 100%;
+}
+
+.metric-card-label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+}
+
+.metric-card-value {
+    font-family: var(--font-mono);
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.metric-card-delta {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    margin-top: 0.35rem;
+}
+
+.delta-positive { color: var(--accent-emerald); }
+.delta-negative { color: var(--accent-red); }
+.delta-neutral { color: var(--text-muted); }
+
+/* ---------- Panel / container umum ---------- */
+.panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1.1rem;
+}
+
+.panel-title {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.95rem;
+}
+
+.panel-title i {
+    color: var(--accent-emerald);
+    font-size: 1.05rem;
+}
+
+/* ---------- Badge ticker terpilih ---------- */
+.ticker-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.7rem;
+    background: rgba(45, 212, 167, 0.1);
+    border: 1px solid rgba(45, 212, 167, 0.3);
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent-emerald);
+    margin: 0.15rem;
+}
+
+/* ---------- Tabel custom ---------- */
+.data-table-wrap {
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* ---------- Divider halus ---------- */
+.hairline {
+    border: none;
+    border-top: 1px solid var(--border-subtle);
+    margin: 1.4rem 0;
+}
+
+/* ---------- Sidebar navigation (st.radio styled as nav list) ---------- */
+section[data-testid="stSidebar"] div[role="radiogroup"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label {
+    display: flex;
+    align-items: center;
+    padding: 0.65rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    cursor: pointer;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+    background: var(--bg-card-hover);
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child {
+    display: none;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label > div:last-child {
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] {
+    background: rgba(45, 212, 167, 0.1);
+    border-color: rgba(45, 212, 167, 0.3);
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] > div:last-child {
+    color: var(--accent-emerald);
+}
+
+/* ---------- Streamlit widget overrides ---------- */
+div[data-testid="stMetricValue"] {
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+}
+
+.stButton > button {
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.stButton > button:hover {
+    border-color: var(--accent-emerald);
+    color: var(--accent-emerald);
+}
+
+.stButton > button[kind="primary"] {
+    background: var(--accent-emerald);
+    border: 1px solid var(--accent-emerald);
+    color: #0F1419;
+}
+
+.stButton > button[kind="primary"]:hover {
+    background: var(--accent-emerald-dim);
+    border-color: var(--accent-emerald-dim);
+    color: #0F1419;
+}
+
+div[data-testid="stDataFrame"] {
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    gap: 0.4rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.stTabs [data-baseweb="tab"] {
+    height: 2.6rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.stTabs [aria-selected="true"] {
+    color: var(--accent-emerald) !important;
+}
+
+div[data-testid="stExpander"] {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+}
+
+/* ---------- Multiselect / select box ---------- */
+div[data-baseweb="select"] > div {
+    background-color: var(--bg-card);
+    border-color: var(--border-subtle);
+}
+
+/* ---------- Callout informasi ---------- */
+.callout {
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.callout i {
+    color: var(--accent-blue);
+    font-size: 1rem;
+    margin-top: 0.1rem;
+}
+
+.callout.warning i { color: var(--accent-amber); }
+.callout.danger i { color: var(--accent-red); }
+
+/* ---------- Footer ---------- */
+.app-footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    padding: 1.5rem 0 0.5rem 0;
+}
+
+/* ---------- Scrollbar halus ---------- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
