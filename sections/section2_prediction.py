@@ -142,7 +142,7 @@ def _render_ticker_detail(result: dict, ticker: str) -> None:
     fig.update_layout(
         **PLOTLY_TEMPLATE["layout"], height=420,
         margin=dict(t=20, b=10, l=10, r=10),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0, bgcolor="rgba(0,0,0,0)"),
         yaxis_title="Harga (Rp)",
     )
     st.plotly_chart(fig, use_container_width=True, key=f"price_chart_{ticker}")
