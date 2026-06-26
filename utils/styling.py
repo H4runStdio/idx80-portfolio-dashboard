@@ -149,7 +149,6 @@ PLOTLY_TEMPLATE = {
             "linecolor": "#2A3441",
             "zerolinecolor": "#2A3441",
         },
-        "legend": {"bgcolor": "rgba(0,0,0,0)"},
         "colorway": [
             "#2DD4A7", "#4D9FE5", "#E8A33D", "#E5484D",
             "#9D7BE5", "#5AC8E8", "#E87BB3", "#8FE82D",
