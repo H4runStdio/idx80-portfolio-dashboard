@@ -25,9 +25,11 @@ def inject_global_styles() -> None:
     """Menyuntikkan font eksternal, Bootstrap Icons, dan CSS kustom ke halaman."""
     css_content = CSS_PATH.read_text()
     html_block = (
-        f'<link href="{GOOGLE_FONTS_CDN}" rel="stylesheet">'
-        f'<link rel="stylesheet" href="{BOOTSTRAP_ICONS_CDN}">'
-        f"<style>{css_content}</style>"
+        "<style>"
+        f'@import url("{GOOGLE_FONTS_CDN}");'
+        f'@import url("{BOOTSTRAP_ICONS_CDN}");'
+        f"{css_content}"
+        "</style>"
     )
     st.html(html_block)
 
