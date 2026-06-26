@@ -82,7 +82,7 @@ def _render_prior_vs_posterior(bl_result, tickers: list[str]) -> None:
         **PLOTLY_TEMPLATE["layout"], height=380, barmode="group",
         margin=dict(t=20, b=10, l=10, r=10),
         yaxis_title="Expected Return Tahunan (%)",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0, bgcolor="rgba(0,0,0,0)"),
     )
     st.plotly_chart(fig, use_container_width=True, key="prior_posterior_chart")
     panel_end()
