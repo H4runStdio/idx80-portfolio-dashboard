@@ -263,7 +263,7 @@ def _render_stress_test(result: dict) -> None:
         **PLOTLY_TEMPLATE["layout"], height=420,
         margin=dict(t=20, b=10, l=10, r=10),
         xaxis_title="Hari ke Depan", yaxis_title="Nilai Portofolio (Rp, asumsi modal awal Rp 100 juta)",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0, bgcolor="rgba(0,0,0,0)"),
     )
     st.plotly_chart(fig, use_container_width=True, key="stress_path_chart")
     panel_end()
@@ -321,7 +321,7 @@ def _render_sensitivity(result: dict) -> None:
         **PLOTLY_TEMPLATE["layout"], height=380, barmode="group",
         margin=dict(t=20, b=10, l=10, r=10),
         yaxis_title="Bobot Portofolio (%)",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0, bgcolor="rgba(0,0,0,0)"),
     )
     st.plotly_chart(fig, use_container_width=True, key="sensitivity_chart")
     panel_end()
