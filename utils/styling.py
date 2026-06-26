@@ -23,15 +23,13 @@ GOOGLE_FONTS_CDN = (
 
 def inject_global_styles() -> None:
     """Menyuntikkan font eksternal, Bootstrap Icons, dan CSS kustom ke halaman."""
-    st.markdown(
-        f"""
-        <link href="{GOOGLE_FONTS_CDN}" rel="stylesheet">
-        <link rel="stylesheet" href="{BOOTSTRAP_ICONS_CDN}">
-        <style>{CSS_PATH.read_text()}</style>
-        """,
-        unsafe_allow_html=True,
+    css_content = CSS_PATH.read_text()
+    html_block = (
+        f'<link href="{GOOGLE_FONTS_CDN}" rel="stylesheet">'
+        f'<link rel="stylesheet" href="{BOOTSTRAP_ICONS_CDN}">'
+        f"<style>{css_content}</style>"
     )
-
+    st.markdown(html_block, unsafe_allow_html=True)
 
 def render_app_header() -> None:
     """Header brand utama di puncak halaman."""
