@@ -81,6 +81,52 @@ def build_training_frame(price: pd.Series) -> tuple[pd.DataFrame, list[str]]:
     return feat, feature_cols
 
 
+def _mape_on_price(
+    price: pd.Series, positions: np.ndarray, pred_returns: np.ndarray
+) -> float:
+    """
+    Menghitung MAPE pada skala harga (bukan return) untuk satu himpunan
+    posisi (train atau test). `positions` adalah indeks posisi baris T
+    pada deret `price`, sedangkan `pred_returns` adalah prediksi
+    log-return dari T ke T+1 untuk posisi yang bersesuaian.
+    """
+    next_positions = positions + 1
+    valid_mask = next_positions < len(price)
+
+    base_price = price.iloc[positions[valid_mask]].values
+    actual_price_next = price.iloc[next_positions[valid_mask]].values
+    pred_price_next = base_price * np.exp(pred_returns[valid_mask])
+
+    return float(
+        np.mean(np.abs((actual_price_next - pred_price_next) / actual_price_next)) * 100
+    )
+
+
+def directional_accuracy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    """
+    Mengukur persentase ketepatan arah pergerakan (naik/turun) antara
+    return aktual dan return prediksi — relevan secara praktis karena
+    keputusan alokasi portofolio lebih bergantung pada arah pergerakan
+    harga dibanding besaran errornya secara presisi.
+    """
+    true_dir = np.sign(y_true)
+    pred_dir = np.sign(y_pred)
+    return float(np.mean(true_dir == pred_dir) * 100)
+
+
+def r_squared(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    """
+    Koefisien determinasi (R^2) pada skala log-return, menunjukkan
+    proporsi variansi return yang dapat dijelaskan oleh model relatif
+    terhadap baseline rata-rata.
+    """
+    ss_res = np.sum((y_true - y_pred) ** 2)
+    ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
+    if ss_tot < 1e-12:
+        return 0.0
+    return float(1 - ss_res / ss_tot)
+
+
 @dataclass
 class TrainResult:
     model: XGBRegressor
@@ -90,6 +136,13 @@ class TrainResult:
     test_mape: float
     y_test: pd.Series
     y_pred_test: pd.Series
+    # --- Metrik evaluasi tambahan (skala return, kecuali disebutkan lain) ---
+    train_mae: float
+    test_mae: float
+    train_mape: float
+    train_r2: float
+    test_r2: float
+    test_directional_accuracy: float
 
 
 def train_xgboost_model(
@@ -131,6 +184,11 @@ def train_xgboost_model(
 
     train_rmse = float(np.sqrt(np.mean((pred_train - y_train.values) ** 2)))
     test_rmse = float(np.sqrt(np.mean((pred_test - y_test.values) ** 2)))
+    train_mae = float(np.mean(np.abs(pred_train - y_train.values)))
+    test_mae = float(np.mean(np.abs(pred_test - y_test.values)))
+    train_r2 = r_squared(y_train.values, pred_train)
+    test_r2 = r_squared(y_test.values, pred_test)
+    test_directional_accuracy = directional_accuracy(y_test.values, pred_test)
 
     # MAPE dihitung pada level harga (bukan return) agar lebih mudah
     # diinterpretasikan. PENTING: target_return pada baris bertanggal T
@@ -138,18 +196,11 @@ def train_xgboost_model(
     # sehingga harga dasar yang benar untuk merekonstruksi prediksi adalah
     # price[T] (bukan price[T-1]) dan harga aktual yang dibandingkan adalah
     # price[T+1] (bukan price[T]).
-    test_dates = test_df.index
-    test_positions = price.index.get_indexer(test_dates)
-    next_positions = test_positions + 1
+    train_positions = price.index.get_indexer(train_df.index)
+    test_positions = price.index.get_indexer(test_df.index)
 
-    valid_mask = next_positions < len(price)
-    base_price_test = price.iloc[test_positions[valid_mask]].values
-    actual_price_next = price.iloc[next_positions[valid_mask]].values
-    pred_price_next = base_price_test * np.exp(pred_test[valid_mask])
-
-    mape = float(
-        np.mean(np.abs((actual_price_next - pred_price_next) / actual_price_next)) * 100
-    )
+    train_mape = _mape_on_price(price, train_positions, pred_train)
+    mape = _mape_on_price(price, test_positions, pred_test)
 
     return TrainResult(
         model=model,
@@ -159,6 +210,12 @@ def train_xgboost_model(
         test_mape=mape,
         y_test=y_test,
         y_pred_test=pd.Series(pred_test, index=y_test.index),
+        train_mae=train_mae,
+        test_mae=test_mae,
+        train_mape=train_mape,
+        train_r2=train_r2,
+        test_r2=test_r2,
+        test_directional_accuracy=test_directional_accuracy,
     )
 
 
