@@ -95,6 +95,49 @@ def _render_ticker_detail(result: dict, ticker: str) -> None:
 
     st.markdown("<br>", unsafe_allow_html=True)
 
+    panel_start("Evaluasi Performa Model — Train vs Test", "bi-clipboard-data")
+    e1, e2, e3, e4 = st.columns(4)
+    with e1:
+        render_metric_card("MAE Return (Train)", f"{train_res.train_mae:.5f}", "bi-dash-square")
+        render_metric_card("MAE Return (Test)", f"{train_res.test_mae:.5f}", "bi-dash-square-fill")
+    with e2:
+        render_metric_card("RMSE Return (Train)", f"{train_res.train_rmse:.5f}", "bi-rulers")
+        render_metric_card("MAPE Harga (Train)", f"{train_res.train_mape:.2f}%", "bi-percent")
+    with e3:
+        r2_delta_type = "positive" if train_res.test_r2 > 0 else "negative"
+        render_metric_card("R\u00b2 (Train)", f"{train_res.train_r2:.3f}", "bi-graph-up")
+        render_metric_card("R\u00b2 (Test)", f"{train_res.test_r2:.3f}", "bi-graph-up", delta_type=r2_delta_type)
+    with e4:
+        da = train_res.test_directional_accuracy
+        da_delta_type = "positive" if da >= 50 else "negative"
+        render_metric_card(
+            "Akurasi Arah (Test)", f"{da:.1f}%", "bi-signpost-split",
+            delta_type=da_delta_type,
+        )
+        gap = train_res.test_rmse - train_res.train_rmse
+        gap_delta_type = "negative" if gap > train_res.train_rmse * 0.5 else "neutral"
+        render_metric_card(
+            "Gap RMSE (Test-Train)", f"{gap:+.5f}", "bi-arrows-angle-expand",
+            delta_type=gap_delta_type,
+        )
+    panel_end()
+
+    render_callout(
+        "MAE dan RMSE diukur pada skala log-return harian sehingga sebanding antar saham "
+        "dengan harga berbeda; nilainya yang kecil terlihat wajar karena return harian saham "
+        "memang berorde kecil. R\u00b2 mengukur proporsi variansi return yang terjelaskan model "
+        "dibanding baseline rata-rata (nilai mendekati 0 atau negatif pada data test adalah hal "
+        "lazim untuk prediksi return harian saham yang sangat noisy). Akurasi arah (directional "
+        "accuracy) mengukur seberapa sering model menebak arah naik/turun dengan benar — metrik "
+        "ini relevan secara praktis karena keputusan alokasi portofolio lebih bergantung pada arah "
+        "pergerakan dibanding presisi besarannya. Gap RMSE antara train dan test menjadi indikator "
+        "sederhana overfitting: gap yang besar relatif terhadap RMSE train menandakan model "
+        "menghafal pola data latih namun kurang generalisasi pada data baru.",
+        icon="bi-info-circle",
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
     panel_start(f"Harga Aktual vs Prediksi — {ticker}", "bi-bar-chart-line")
 
     test_dates = train_res.y_test.index
