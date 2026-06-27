@@ -38,6 +38,26 @@
     --radius-pill: 100px;
 }
 
+header[data-testid="stHeader"] {
+    display: none !important;
+    height: 0 !important;
+}
+#MainMenu {
+    display: none !important;
+}
+.stDeployButton {
+    display: none !important;
+}
+footer {
+    display: none !important;
+}
+div[data-testid="stToolbar"] {
+    display: none !important;
+}
+div[data-testid="stDecoration"] {
+    display: none !important;
+}
+
 html, body, [class*="css"] {
     font-family: var(--font-ui);
 }
@@ -60,7 +80,8 @@ section[data-testid="stSidebar"] .block-container {
 }
 
 .block-container {
-    padding-top: 2rem;
+    padding-top: 1.5rem !important;
+    max-width: 100% !important;
 }
 
 /* ---------- Tipografi ---------- */
