@@ -23,6 +23,7 @@ st.set_page_config(
     page_icon=None,
     layout="wide",
     initial_sidebar_state="expanded",
+    menu_items={} 
 )
 
 inject_global_styles()
