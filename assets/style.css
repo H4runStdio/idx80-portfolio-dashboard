@@ -1,23 +1,26 @@
 /* ============================================================
-   IDX80 Portfolio Dashboard — Stylesheet v3
-   Tema: terminal data finansial — monochrome, tegas, profesional
+   IDX80 Portfolio Dashboard — Stylesheet v2
+   Tema: deep navy / electric blue, terinspirasi terminal data
+   finansial malam hari. Tipografi Inter (UI) + IBM Plex Mono
+   (data numerik & label teknis).
    ============================================================ */
 
 :root {
-    --bg-primary: #070D14;
-    --bg-secondary: #0C1520;
-    --bg-card: #0F1C2A;
-    --bg-card-hover: #152233;
-    --bg-elevated: #172840;
-    --border-subtle: #1A2E42;
-    --border-strong: #243D56;
-    --border-hover: #3A6080;
+    /* Surface — gradasi navy, bukan abu-abu netral */
+    --bg-primary: #0A1628;
+    --bg-secondary: #0D1D33;
+    --bg-card: #112842;
+    --bg-card-hover: #15304F;
+    --bg-elevated: #1A3A5C;
+    --border-subtle: #1E3A5C;
+    --border-strong: #2B5483;
 
-    --text-primary: #E8EDF2;
-    --text-secondary: #7A95AE;
-    --text-muted: #3D5670;
-    --text-label: #5A7A94;
+    /* Teks */
+    --text-primary: #F1F5F9;
+    --text-secondary: #93A8C3;
+    --text-muted: #5C7393;
 
+    /* Accent biru utama + sekunder data-viz */
     --accent-blue: #3B82F6;
     --accent-blue-bright: #60A5FA;
     --accent-blue-dim: #1D4ED8;
@@ -30,9 +33,8 @@
     --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
 
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
     --radius-pill: 100px;
 }
 
@@ -40,75 +42,87 @@ html, body, [class*="css"] {
     font-family: var(--font-ui);
 }
 
-/* ---------- Sembunyikan elemen bawaan Streamlit ---------- */
-header[data-testid="stHeader"] { display: none !important; height: 0 !important; }
-#MainMenu { display: none !important; }
-.stDeployButton { display: none !important; }
-footer { display: none !important; }
-div[data-testid="stToolbar"] { display: none !important; }
-div[data-testid="stDecoration"] { display: none !important; }
+/* ---------- Sembunyikan header toolbar bawaan Streamlit ---------- */
+header[data-testid="stHeader"] {
+    display: none !important;
+    height: 0 !important;
+}
+#MainMenu {
+    display: none !important;
+}
+.stDeployButton {
+    display: none !important;
+}
+footer {
+    display: none !important;
+}
+div[data-testid="stToolbar"] {
+    display: none !important;
+}
+div[data-testid="stDecoration"] {
+    display: none !important;
+}
 
-/* ---------- Background utama ---------- */
+/* ---------- Layout dasar ---------- */
 .stApp {
-    background: var(--bg-primary);
-    background-image:
-        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
-    background-size: 40px 40px;
+    background:
+        radial-gradient(ellipse 1200px 600px at 15% -10%, rgba(59, 130, 246, 0.16) 0%, transparent 60%),
+        radial-gradient(ellipse 900px 500px at 100% 0%, rgba(34, 211, 238, 0.08) 0%, transparent 55%),
+        var(--bg-primary);
 }
 
-/* ---------- Main content padding ---------- */
-.block-container {
-    padding-top: 1.5rem !important;
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
-    max-width: 100% !important;
-}
-
-/* ---------- Sidebar ---------- */
 section[data-testid="stSidebar"] {
-    background: var(--bg-secondary);
+    background: linear-gradient(180deg, #0B1A30 0%, #0A1628 100%);
     border-right: 1px solid var(--border-subtle);
 }
 
 section[data-testid="stSidebar"] .block-container {
-    padding-top: 1.8rem;
-    padding-left: 1.2rem;
-    padding-right: 1.2rem;
+    padding-top: 1.6rem;
+}
+
+/* Hapus padding-top ekstra akibat header yang kini disembunyikan */
+.block-container {
+    padding-top: 1.5rem !important;
+    max-width: 100% !important;
 }
 
 /* ---------- Tipografi ---------- */
 h1, h2, h3, h4 {
     font-family: var(--font-ui);
     color: var(--text-primary);
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-weight: 650;
+    letter-spacing: -0.015em;
 }
 
 p, span, label, div {
     color: var(--text-primary);
 }
 
-/* ---------- App Header ---------- */
+/* ---------- Header brand — hero dengan gradasi biru hidup ---------- */
 .app-header {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.2rem 1.8rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-left: 3px solid var(--accent-blue);
-    border-radius: var(--radius-md);
+    padding: 1.5rem 2rem;
+    background:
+        radial-gradient(ellipse 600px 200px at 0% 0%, rgba(96, 165, 250, 0.35) 0%, transparent 70%),
+        linear-gradient(120deg, #14305A 0%, #0F2342 55%, #0A1A30 100%);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
     margin-bottom: 1.8rem;
     overflow: hidden;
 }
 
-.app-header::before {
+.app-header::after {
     content: "";
     position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgba(59,130,246,0.06) 0%, transparent 60%);
+    top: -40%;
+    right: -8%;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.22) 0%, transparent 70%);
+    border-radius: 50%;
     pointer-events: none;
 }
 
@@ -121,34 +135,32 @@ p, span, label, div {
 }
 
 .app-header-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-sm);
-    background: rgba(59,130,246,0.15);
-    border: 1px solid rgba(59,130,246,0.3);
+    width: 50px;
+    height: 50px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--accent-blue-bright);
-    font-size: 1.3rem;
+    color: #0A1628;
+    font-size: 1.5rem;
     flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
 .app-header-title {
-    font-size: 1.05rem;
-    font-weight: 700;
+    font-size: 1.18rem;
+    font-weight: 650;
     color: var(--text-primary);
     margin: 0;
+    line-height: 1.3;
     letter-spacing: -0.01em;
-    font-family: var(--font-mono);
 }
 
 .app-header-subtitle {
-    font-size: 0.78rem;
-    color: var(--text-muted);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
     margin: 0;
-    margin-top: 0.15rem;
-    letter-spacing: 0.02em;
 }
 
 .app-header-badge {
@@ -157,99 +169,111 @@ p, span, label, div {
     display: flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.35rem 0.8rem;
-    background: rgba(34,211,238,0.07);
-    border: 1px solid rgba(34,211,238,0.2);
+    padding: 0.4rem 0.85rem;
+    background: rgba(34, 211, 238, 0.12);
+    border: 1px solid rgba(34, 211, 238, 0.35);
     border-radius: var(--radius-pill);
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     color: var(--accent-cyan);
     font-family: var(--font-mono);
-    letter-spacing: 0.05em;
 }
+
+/* ---------- Pills kapabilitas ---------- */
+.capability-row {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.9rem;
+}
+
+.capability-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.38rem 0.85rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: rgba(241, 245, 249, 0.07);
+    border: 1px solid rgba(241, 245, 249, 0.15);
+    color: var(--text-primary);
+}
+
+.capability-pill i { color: var(--accent-blue-bright); font-size: 0.85rem; }
 
 /* ---------- Section eyebrow ---------- */
 .section-eyebrow {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 0.5rem;
     font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--text-muted);
+    font-size: 0.72rem;
+    color: var(--accent-blue-bright);
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 0.5rem;
-    padding-left: 0.7rem;
-    border-left: 2px solid var(--accent-blue);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
 }
 
 .section-title {
-    font-size: 1.55rem;
-    font-weight: 700;
+    font-size: 1.75rem;
+    font-weight: 650;
     color: var(--text-primary);
     margin-top: 0;
-    margin-bottom: 0.3rem;
-    letter-spacing: -0.025em;
+    margin-bottom: 0.35rem;
+    letter-spacing: -0.02em;
 }
 
 .section-desc {
     color: var(--text-secondary);
-    font-size: 0.88rem;
-    margin-bottom: 1.8rem;
-    max-width: 760px;
-    line-height: 1.65;
+    font-size: 0.94rem;
+    margin-bottom: 1.7rem;
+    max-width: 780px;
+    line-height: 1.6;
 }
 
-/* ---------- Metric card — monochrome, hover menyala ---------- */
+/* ---------- Card metrik ---------- */
 .metric-card {
     position: relative;
-    background: var(--bg-card);
+    background: linear-gradient(160deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 1.1rem 1.3rem;
+    padding: 1.25rem 1.4rem 1.25rem 1.55rem;
     height: 100%;
     overflow: hidden;
-    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-    cursor: default;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .metric-card:hover {
-    border-color: var(--border-hover);
-    background: var(--bg-card-hover);
-    box-shadow: 0 0 0 1px rgba(96,165,250,0.15), 0 8px 32px rgba(0,0,0,0.4);
+    border-color: var(--border-strong);
     transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .metric-card-label {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 0.68rem;
-    color: var(--text-label);
+    gap: 0.45rem;
+    font-size: 0.76rem;
+    color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.6rem;
-    font-family: var(--font-mono);
-}
-
-.metric-card-label i {
-    font-size: 0.75rem;
-    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.55rem;
 }
 
 .metric-card-value {
     font-family: var(--font-mono);
-    font-size: 1.7rem;
+    font-size: 1.65rem;
     font-weight: 600;
     color: var(--text-primary);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
 .metric-card-delta {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
-    margin-top: 0.45rem;
-    letter-spacing: 0.02em;
+    font-size: 0.82rem;
+    margin-top: 0.4rem;
 }
 
 .delta-positive { color: var(--accent-green); }
@@ -261,121 +285,39 @@ p, span, label, div {
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 1.4rem 1.6rem;
-    margin-bottom: 1.1rem;
+    padding: 1.5rem 1.6rem;
+    margin-bottom: 1.2rem;
 }
 
 .panel-title {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 0.9rem;
+    font-size: 1.02rem;
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--border-subtle);
-    letter-spacing: -0.01em;
 }
 
 .panel-title i {
-    color: var(--text-secondary);
-    font-size: 1rem;
+    color: var(--accent-blue-bright);
+    font-size: 1.1rem;
 }
 
-/* ---------- Sidebar navigation ---------- */
-section[data-testid="stSidebar"] div[role="radiogroup"] {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-}
-
-section[data-testid="stSidebar"] div[role="radiogroup"] label {
-    display: flex;
-    align-items: center;
-    padding: 0.6rem 0.75rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid transparent;
-    background: transparent;
-    transition: background 0.15s ease, color 0.15s ease;
-    cursor: pointer;
-    border-left: 2px solid transparent;
-}
-
-section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-    background: rgba(255,255,255,0.04);
-}
-
-section[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child {
-    display: none;
-}
-
-section[data-testid="stSidebar"] div[role="radiogroup"] label > div:last-child {
-    font-size: 0.83rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    letter-spacing: -0.01em;
-}
-
-section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] {
-    background: rgba(59,130,246,0.08);
-    border-left: 2px solid var(--accent-blue);
-}
-
-section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] > div:last-child {
-    color: var(--text-primary);
-    font-weight: 600;
-}
-
-/* ---------- Badge / ticker chip ---------- */
+/* ---------- Badge ticker ---------- */
 .ticker-chip {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.28rem 0.65rem;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border-subtle);
+    gap: 0.4rem;
+    padding: 0.32rem 0.75rem;
+    background: rgba(59, 130, 246, 0.14);
+    border: 1px solid rgba(96, 165, 250, 0.35);
     border-radius: var(--radius-pill);
     font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-primary);
+    font-size: 0.8rem;
+    color: var(--accent-blue-bright);
     margin: 0.15rem;
-    letter-spacing: 0.03em;
 }
-
-/* ---------- Callout ---------- */
-.callout {
-    display: flex;
-    gap: 0.75rem;
-    padding: 0.85rem 1.1rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-subtle);
-    border-left: 3px solid var(--accent-blue);
-    background: rgba(59,130,246,0.05);
-    font-size: 0.84rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 1rem;
-}
-
-.callout i {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    margin-top: 0.1rem;
-    flex-shrink: 0;
-}
-
-.callout.warning {
-    border-left-color: var(--accent-amber);
-    background: rgba(251,191,36,0.05);
-}
-.callout.warning i { color: var(--accent-amber); }
-
-.callout.danger {
-    border-left-color: var(--accent-rose);
-    background: rgba(251,113,133,0.05);
-}
-.callout.danger i { color: var(--accent-rose); }
 
 /* ---------- Divider ---------- */
 .hairline {
@@ -384,15 +326,83 @@ section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true
     margin: 1.5rem 0;
 }
 
-/* ---------- Footer ---------- */
-.app-footer {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    padding: 2rem 0 0.5rem 0;
-    font-family: var(--font-mono);
-    letter-spacing: 0.05em;
+/* ---------- Sidebar brand ---------- */
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.5rem 0 1.3rem 0;
 }
+
+.sidebar-brand-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0A1628;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+}
+
+.sidebar-brand-title { font-weight: 650; font-size: 0.98rem; color: var(--text-primary); }
+.sidebar-brand-subtitle { font-size: 0.74rem; color: var(--text-muted); }
+
+/* ---------- Sidebar navigation ---------- */
+section[data-testid="stSidebar"] div[role="radiogroup"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem 0.85rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: transparent;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    cursor: pointer;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+    background: var(--bg-card-hover);
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child {
+    display: none;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label > div:last-child {
+    font-size: 0.87rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] {
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.18) 0%, rgba(34, 211, 238, 0.06) 100%);
+    border-color: rgba(96, 165, 250, 0.4);
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] > div:last-child {
+    color: var(--accent-blue-bright);
+    font-weight: 600;
+}
+
+/* ---------- Info chips sidebar bawah ---------- */
+.sidebar-info-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 0.1rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.sidebar-info-chip i { color: var(--accent-blue-bright); font-size: 0.85rem; }
 
 /* ---------- Streamlit widget overrides ---------- */
 div[data-testid="stMetricValue"] {
@@ -401,85 +411,112 @@ div[data-testid="stMetricValue"] {
 }
 
 .stButton > button {
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    border: 1px solid var(--border-subtle);
     background: var(--bg-card);
     color: var(--text-primary);
     font-weight: 500;
-    font-size: 0.85rem;
     transition: all 0.18s ease;
 }
 
 .stButton > button:hover {
-    border-color: var(--accent-blue);
-    background: rgba(59,130,246,0.08);
+    border-color: var(--accent-blue-bright);
     color: var(--accent-blue-bright);
 }
 
 .stButton > button[kind="primary"] {
-    background: var(--accent-blue);
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-dim) 100%);
     border: 1px solid var(--accent-blue);
-    color: #fff;
-    font-weight: 600;
+    color: #F8FAFC;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
 }
 
 .stButton > button[kind="primary"]:hover {
-    background: var(--accent-blue-dim);
-    border-color: var(--accent-blue-dim);
-    box-shadow: 0 4px 16px rgba(59,130,246,0.3);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
     transform: translateY(-1px);
 }
 
 div[data-testid="stDataFrame"] {
     border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-md);
+    border-radius: 12px;
 }
 
 .stTabs [data-baseweb="tab-list"] {
-    gap: 0.25rem;
+    gap: 0.5rem;
     border-bottom: 1px solid var(--border-subtle);
-    background: transparent;
 }
 
 .stTabs [data-baseweb="tab"] {
-    height: 2.5rem;
+    height: 2.7rem;
     color: var(--text-secondary);
     font-weight: 500;
-    font-size: 0.85rem;
-    border-radius: 0;
-    border-bottom: 2px solid transparent;
 }
 
 .stTabs [aria-selected="true"] {
-    color: var(--text-primary) !important;
-    border-bottom: 2px solid var(--accent-blue) !important;
+    color: var(--accent-blue-bright) !important;
 }
 
 div[data-testid="stExpander"] {
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-md);
+    border-radius: 12px;
 }
 
 div[data-baseweb="select"] > div {
     background-color: var(--bg-card);
     border-color: var(--border-subtle);
-    border-radius: var(--radius-sm);
+    border-radius: 10px;
 }
 
 div[data-baseweb="tag"] {
-    background: rgba(59,130,246,0.2) !important;
-    border: 1px solid rgba(59,130,246,0.4) !important;
-    border-radius: 6px !important;
-    color: var(--accent-blue-bright) !important;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-dim) 100%) !important;
+    border-radius: 8px !important;
 }
 
 div[data-testid="stSlider"] div[role="slider"] {
-    background-color: var(--text-primary) !important;
+    background-color: var(--accent-blue-bright) !important;
+}
+
+/* ---------- Callout ---------- */
+.callout {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, var(--bg-card) 100%);
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 1.1rem;
+}
+
+.callout i {
+    color: var(--accent-blue-bright);
+    font-size: 1.05rem;
+    margin-top: 0.1rem;
+}
+
+.callout.warning {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, var(--bg-card) 100%);
+}
+.callout.warning i { color: var(--accent-amber); }
+
+.callout.danger {
+    background: linear-gradient(135deg, rgba(251, 113, 133, 0.08) 0%, var(--bg-card) 100%);
+}
+.callout.danger i { color: var(--accent-rose); }
+
+/* ---------- Footer ---------- */
+.app-footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    padding: 1.7rem 0 0.6rem 0;
 }
 
 /* ---------- Scrollbar ---------- */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 3px; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
