@@ -29,11 +29,11 @@ st.set_page_config(
 inject_global_styles()
 
 NAV_ITEMS = [
-    {"key": "section1", "label": "01 — Pemilihan Saham & Overview", "icon": "bi-collection", "module": section1_overview},
-    {"key": "section2", "label": "02 — Prediksi Harga (XGBoost)", "icon": "bi-graph-up", "module": section2_prediction},
-    {"key": "section3", "label": "03 — Optimasi Portofolio (BL)", "icon": "bi-diagram-3", "module": section3_optimization},
-    {"key": "section4", "label": "04 — Simulasi & Manajemen Risiko", "icon": "bi-shield-exclamation", "module": section4_simulation},
-    {"key": "section5", "label": "05 — Informasi Penyusun", "icon": "bi-person-badge", "module": section5_about},
+    {"key": "section1", "label": "Pemilihan Saham & Overview", "icon": "bi-collection", "module": section1_overview},
+    {"key": "section2", "label": "Prediksi Harga (XGBoost)", "icon": "bi-graph-up", "module": section2_prediction},
+    {"key": "section3", "label": "Optimasi Portofolio (BL)", "icon": "bi-diagram-3", "module": section3_optimization},
+    {"key": "section4", "label": "Simulasi & Manajemen Risiko", "icon": "bi-shield-exclamation", "module": section4_simulation},
+    {"key": "section5", "label": "Informasi Penyusun", "icon": "bi-person-badge", "module": section5_about},
 ]
 
 if "active_section" not in st.session_state:
