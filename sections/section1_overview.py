@@ -242,19 +242,28 @@ def _render_overview(result: dict) -> None:
 
     with col_left:
         panel_start("Alokasi Bobot Portofolio Optimal", "bi-pie-chart-fill")
+        pie_weights = active if len(active) > 0 else weights
         fig = go.Figure(
             data=[
                 go.Pie(
-                    labels=weights.index,
-                    values=weights.values,
+                    labels=pie_weights.index,
+                    values=pie_weights.values,
                     hole=0.55,
                     textinfo="label+percent",
+                    textposition="outside",
                     marker=dict(colors=PLOTLY_TEMPLATE["layout"]["colorway"]),
+                    pull=[0.03] * len(pie_weights),
                 )
             ]
         )
-        fig.update_layout(**PLOTLY_TEMPLATE["layout"], height=360, margin=dict(t=10, b=10, l=10, r=10))
-        st.plotly_chart(fig, use_container_width=True)
+        fig.update_layout(
+            **PLOTLY_TEMPLATE["layout"],
+            height=360,
+            margin=dict(t=30, b=30, l=30, r=30),
+            showlegend=True,
+            legend=dict(orientation="v", yanchor="middle", y=0.5, xanchor="left", x=1.05),
+        )
+        st.plotly_chart(fig, use_container_width=True, key="pie_allocation_chart")
         panel_end()
 
     with col_right:
